@@ -7,6 +7,12 @@ pipeline {
                 sh 'mvn clean compile -e'
             }
         }
+		
+		stage('Sonar') {
+            steps {
+                sh 'mvn clean compile -e'
+            }
+        }
         
         stage('Test') {
             steps {
@@ -23,7 +29,7 @@ pipeline {
         stage('Run') {
             steps {
                 sh 'nohup mvn spring-boot:run > server.log 2>&1&'
-                sleep 60
+                sleep 30
             }
         }
         
