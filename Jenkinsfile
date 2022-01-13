@@ -9,8 +9,9 @@ pipeline {
         }
 		
 		stage('Sonar') {
-            steps {
-                sh 'mvn clean compile -e'
+            def scannerHome = tool 'sonar-scanner';
+            withSonarQubeEnv('sonar-server') {
+				sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-maven -Dsonar.sources=src -Dsonar.java.binaries=build"
             }
         }
         
